@@ -4,7 +4,7 @@ import 'package:recepia/models/meal_details_model.dart';
 import 'meal_details.dart';
 
 class RecommendedDishesView extends StatelessWidget {
-  final List<MealDetailsModel?> data;
+  final MealsRandomDetailsModel data;
   const RecommendedDishesView({super.key, required this.data});
 
   @override
@@ -38,7 +38,7 @@ class RecommendedDishesView extends StatelessWidget {
           const SizedBox(height: 10),
           Expanded(
             child: GridView.builder(
-              itemCount: data.length,
+              itemCount: data.meals?.length,
               shrinkWrap: true,
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
@@ -54,7 +54,7 @@ class RecommendedDishesView extends StatelessWidget {
                         borderRadius: BorderRadius.circular(12)),
                     elevation: 4,
                     builder: (context) => MealDetailsScreen(
-                      data: data[i]!,
+                      recipeID: data.meals![i].id.toString(),
                     ),
                   );
                 },
@@ -70,7 +70,7 @@ class RecommendedDishesView extends StatelessWidget {
                         ClipRRect(
                           borderRadius: BorderRadius.circular(8),
                           child: Image.network(
-                            data[i]!.meals!.first.strMealThumb!,
+                            data.meals![i].image!,
                             height: 200,
                             width: 150,
                             fit: BoxFit.cover,
@@ -78,7 +78,7 @@ class RecommendedDishesView extends StatelessWidget {
                         ),
                         const SizedBox(height: 6),
                         Text(
-                          data[i]!.meals!.first.strMeal!,
+                          data.meals![i].title!,
                           softWrap: true,
                           maxLines: 2,
                           overflow: TextOverflow.fade,
@@ -88,7 +88,7 @@ class RecommendedDishesView extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          data[i]!.meals!.first.strArea!,
+                          data.meals![i].title!,
                           style: const TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.w400,

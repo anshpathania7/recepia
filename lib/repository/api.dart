@@ -1,5 +1,9 @@
 import 'package:dio/dio.dart';
+import 'package:recepia/constants.dart';
 import 'package:recepia/models/meal_details_model.dart';
+import 'package:recepia/models/recipe_model.dart';
+
+//import 'test_data.dart';
 
 class Api {
   String? url;
@@ -7,43 +11,58 @@ class Api {
   Dio? dio;
 
   Api() {
-    url = "https://www.themealdb.com/api/json/v1/1/";
+    url = "https://api.spoonacular.com/";
     baseOptions = BaseOptions(
       baseUrl: url!,
     );
     dio = Dio(baseOptions);
   }
 
-  Future<MealDetailsModel> getSearchByMealNameEndpoint(String name) async {
+  Future<MealByIngredientsDetailsModel> searchByIngredient(String name) async {
     final req = await dio!.get(
-      'search.php',
+      'recipes/findByIngredients',
       queryParameters: {
-        "s": name,
-      },
-    );
-    return MealDetailsModel.fromJson(req.data as Map<String, dynamic>);
-  }
-
-  Future<MealDetailsModel> getMealDetailsByIDEndpoint(String id) async {
-    final req = await dio!.get(
-      'look.php',
-      queryParameters: {
-        "i": id,
+        "apiKey": api_key,
+        "ingredients": name,
       },
     );
 
-    return MealDetailsModel.fromJson(req.data as Map<String, dynamic>);
+    //final data = find_by_ingredeints;
+
+    return MealByIngredientsDetailsModel.fromJson(req.data);
   }
 
-  Future<MealDetailsModel> getSingleRandomMealEndpoint() async {
+  Future<RecipeDetail> getMealDetailsByIDEndpoint(String id) async {
     final req = await dio!.get(
-      'random.php',
+      'recipes/$id/information',
+      queryParameters: {
+        "apiKey": api_key,
+      },
     );
 
-    return MealDetailsModel.fromJson(req.data as Map<String, dynamic>);
+    //final data = meal_information;
+
+    return RecipeDetail.fromJson(req.data);
   }
 
-  String getAllIngredientsEndpoint() => "${url}list.php?i=list";
-  String getAllCategoriesEndpoint() => "${url}list.php?c=list";
-  String getAllAreaEndpoint() => "${url}list.php?a=list";
+  Future<MealsRandomDetailsModel> getRandomMealEndpoint() async {
+    final req = await dio!.get(
+      'recipes/random',
+      queryParameters: {
+        "apiKey": api_key,
+        'number': '4',
+      },
+    );
+
+    // final data = {
+    //   "recipes": [
+    //     meal_information,
+    //     meal_information,
+    //     meal_information,
+    //     meal_information
+    //   ],
+    // };
+
+    return MealsRandomDetailsModel.fromJson(req.data);
+  }
 }
