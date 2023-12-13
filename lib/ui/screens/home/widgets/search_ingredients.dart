@@ -23,31 +23,36 @@ class SearchIngredientsScreen extends StatelessWidget {
                 builder: (context, state, child) {
               return state.data == null
                   ? const CircularProgressIndicator()
-                  : ListView.builder(
-                      itemCount: state.data!.meals!.length,
-                      shrinkWrap: true,
-                      itemBuilder: (context, i) => InkWell(
-                            onTap: () {
-                              showBottomSheet(
-                                context: context,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(12)),
-                                elevation: 4,
-                                builder: (context) => MealDetailsScreen(
-                                  recipeID: state.data!.meals![i].id.toString(),
+                  : SizedBox(
+                      height: 400,
+                      child: ListView.builder(
+                          itemCount: state.data!.meals!.length,
+                          shrinkWrap: true,
+                          itemBuilder: (context, i) => InkWell(
+                                onTap: () {
+                                  showBottomSheet(
+                                    context: context,
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(12)),
+                                    elevation: 4,
+                                    builder: (context) => MealDetailsScreen(
+                                      recipeID:
+                                          state.data!.meals![i].id.toString(),
+                                    ),
+                                  );
+                                },
+                                child: ListTile(
+                                  leading: CircleAvatar(
+                                    backgroundImage: NetworkImage(
+                                        state.data!.meals![i].image!),
+                                  ),
+                                  title: Text(state.data!.meals![i].title!),
+                                  subtitle: Text(
+                                      state.data!.meals![i].likes.toString()),
                                 ),
-                              );
-                            },
-                            child: ListTile(
-                              leading: CircleAvatar(
-                                backgroundImage:
-                                    NetworkImage(state.data!.meals![i].image!),
-                              ),
-                              title: Text(state.data!.meals![i].title!),
-                              subtitle:
-                                  Text(state.data!.meals![i].likes.toString()),
-                            ),
-                          ));
+                              )),
+                    );
             }),
           );
         });

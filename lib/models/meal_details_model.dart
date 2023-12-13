@@ -5,7 +5,7 @@ class MealByIngredientsDetailsModel {
 
   MealByIngredientsDetailsModel({this.meals});
 
-  MealByIngredientsDetailsModel.fromJson(List<Map<String?, dynamic>> json) {
+  MealByIngredientsDetailsModel.fromJson(List<dynamic> json) {
     meals = <Recipe>[];
     for (var v in json) {
       meals!.add(Recipe.fromJson(v));

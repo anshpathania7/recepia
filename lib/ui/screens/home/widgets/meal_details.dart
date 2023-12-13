@@ -159,31 +159,6 @@ class MealDetailsScreen extends StatelessWidget {
                             ],
                           ),
                         ),
-                        // Padding(
-                        //   padding: const EdgeInsets.symmetric(vertical: 12.0),
-                        //   child: Center(
-                        //     child: TextButton(
-                        //       onPressed: () async {
-                        //         final Uri url = Uri.parse(state.meal!.meals!.first.strYoutube!);
-                        //         if (!await launchUrl(url)) {
-                        //           throw Exception('Could not launch $url');
-                        //         }
-                        //       },
-                        //       style: TextButton.styleFrom(
-                        //         backgroundColor: Colors.red,
-                        //       ),
-                        //       child: const Text(
-                        //         "Click here to open youtube",
-                        //         style: TextStyle(
-                        //           color: Colors.white,
-                        //         ),
-                        //       ),
-                        //     ),
-                        //   ),
-                        // ),
-                        // CustomYoutubePlayer(
-                        //   youtubeUrl: state.meal!.meals!.first.strYoutube!,
-                        // )
                       ],
                     );
             });
