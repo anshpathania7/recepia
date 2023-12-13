@@ -12,14 +12,16 @@ class RecipeSearchBar extends StatelessWidget {
       onChanged: (val) {
         onChanged(val);
       },
-      onSubmitted: (_) => performSearch,
+      onEditingComplete: () {
+        performSearch();
+      },
       decoration: InputDecoration(
           prefixIcon: IconButton(
             icon: const Icon(Icons.search),
             onPressed: performSearch,
           ),
           suffixIcon: const Icon(Icons.filter_list_outlined),
-          hintText: "Search Any Recipe",
+          hintText: "Type ingredients comma separated",
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(20),
           )),

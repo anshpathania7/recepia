@@ -71,32 +71,16 @@ class MealDetailsScreen extends StatelessWidget {
                               Row(
                                 children: [
                                   const Text(
-                                    "Category : ",
+                                    "Serving size : ",
                                     style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.w600,
                                     ),
                                   ),
+                                  const SizedBox(width: 24),
                                   Chip(
                                     label: Text(
-                                      state.meal!.healthScore.toString(),
-                                      style: const TextStyle(
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                    backgroundColor: Colors.purple,
-                                  ),
-                                  const SizedBox(width: 12),
-                                  const Text(
-                                    ", Area : ",
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                  ),
-                                  Chip(
-                                    label: Text(
-                                      state.meal!.readyInMinutes.toString(),
+                                      state.meal!.servings.toString(),
                                       style: const TextStyle(
                                         color: Colors.white,
                                       ),
@@ -105,45 +89,79 @@ class MealDetailsScreen extends StatelessWidget {
                                   ),
                                 ],
                               ),
-                              const Padding(
-                                padding: EdgeInsets.symmetric(vertical: 12),
-                                child: Text(
-                                  "Ingredients",
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w700,
+                              Row(
+                                children: [
+                                  const Text(
+                                    "Time taken to Ready =>",
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w600,
+                                    ),
                                   ),
-                                ),
+                                  const SizedBox(width: 24),
+                                  Chip(
+                                    label: Text(
+                                      "${state.meal!.readyInMinutes} minutes",
+                                      style: const TextStyle(
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                    backgroundColor: Colors.purple,
+                                  ),
+                                ],
                               ),
-                              Flexible(
-                                child: Wrap(children: [
-                                  for (int i = 0;
-                                      i <
-                                          state
-                                              .meal!.extendedIngredients.length;
-                                      i++) ...[
-                                    Chip(
-                                      label: Text(
-                                        state
-                                            .meal!.extendedIngredients[i].name!,
-                                        style: const TextStyle(
-                                          color: Colors.white,
+                              Container(
+                                decoration: BoxDecoration(
+                                  color: Colors.purple,
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Column(
+                                    children: [
+                                      const Padding(
+                                        padding:
+                                            EdgeInsets.symmetric(vertical: 12),
+                                        child: Text(
+                                          "Ingredients",
+                                          style: TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.w700,
+                                            color: Colors.white,
+                                          ),
                                         ),
                                       ),
-                                      backgroundColor: Colors.lightBlue,
-                                    ),
-                                    const SizedBox(
-                                      width: 6,
-                                    ),
-                                  ]
-                                ]),
+                                      Wrap(children: [
+                                        for (int i = 0;
+                                            i <
+                                                state.meal!.extendedIngredients
+                                                    .length;
+                                            i++) ...[
+                                          Chip(
+                                            label: Text(
+                                              state.meal!.extendedIngredients[i]
+                                                  .name!,
+                                              style: const TextStyle(
+                                                color: Colors.white70,
+                                              ),
+                                            ),
+                                            backgroundColor: Colors.deepPurple,
+                                          ),
+                                          const SizedBox(
+                                            width: 6,
+                                          ),
+                                        ]
+                                      ]),
+                                    ],
+                                  ),
+                                ),
                               ),
                               const Padding(
                                 padding: EdgeInsets.symmetric(vertical: 12),
                                 child: Text(
                                   "Instructions",
                                   style: TextStyle(
-                                    fontSize: 14,
+                                    fontSize: 18,
                                     fontWeight: FontWeight.w700,
                                   ),
                                 ),
@@ -151,10 +169,33 @@ class MealDetailsScreen extends StatelessWidget {
                               Text(
                                 state.meal!.summary!,
                                 style: const TextStyle(
-                                  fontSize: 14,
+                                  fontSize: 16,
                                   fontWeight: FontWeight.w400,
                                   color: Colors.blueGrey,
                                 ),
+                              ),
+                              const SizedBox(height: 12),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Text(
+                                    "Credits : ",
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                  const SizedBox(width: 24),
+                                  Chip(
+                                    label: Text(
+                                      state.meal!.creditsText!,
+                                      style: const TextStyle(
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                    backgroundColor: Colors.purple,
+                                  ),
+                                ],
                               ),
                             ],
                           ),

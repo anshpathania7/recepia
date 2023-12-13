@@ -1,31 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:recepia/provider/search_ingredient_provider.dart';
+import 'package:recepia/provider/search_recipe_type_provider.dart';
 
 import 'meal_details.dart';
 
-class SearchIngredientsScreen extends StatelessWidget {
-  final String searchValue;
-  const SearchIngredientsScreen({super.key, required this.searchValue});
+class SearchRecipeTypeScreen extends StatelessWidget {
+  final String type;
+  const SearchRecipeTypeScreen({super.key, required this.type});
 
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
         create: (context) =>
-            SearchIngredientProvider(searchValue: searchValue)..init(),
+            SearchRecipeTypeProvider(searchValue: type)..init(),
         builder: (context, child) {
           return Scaffold(
             appBar: AppBar(
               title: const Text("Recipes Found are "),
             ),
             extendBodyBehindAppBar: true,
-            body: Consumer<SearchIngredientProvider>(
+            body: Consumer<SearchRecipeTypeProvider>(
                 builder: (context, state, child) {
               return state.data == null
                   ? const CircularProgressIndicator()
                   : SizedBox(
                       child: ListView.builder(
-                          itemCount: state.data!.meals!.length,
+                          itemCount: state.data!.results.length,
                           shrinkWrap: true,
                           itemBuilder: (context, i) => InkWell(
                                 onTap: () {
@@ -37,7 +37,7 @@ class SearchIngredientsScreen extends StatelessWidget {
                                     elevation: 4,
                                     builder: (context) => MealDetailsScreen(
                                       recipeID:
-                                          state.data!.meals![i].id.toString(),
+                                          state.data!.results[i].id.toString(),
                                     ),
                                   );
                                 },
@@ -48,11 +48,10 @@ class SearchIngredientsScreen extends StatelessWidget {
                                     child: ListTile(
                                       leading: CircleAvatar(
                                         backgroundImage: NetworkImage(
-                                            state.data!.meals![i].image!),
+                                            state.data!.results[i].image!),
                                       ),
-                                      title: Text(state.data!.meals![i].title!),
-                                      subtitle: Text(
-                                          "has ${state.data!.meals![i].missedIngredientCount} extra ingredients"),
+                                      title:
+                                          Text(state.data!.results[i].title!),
                                     ),
                                   ),
                                 ),

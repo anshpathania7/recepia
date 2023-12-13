@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:recepia/constants.dart';
 import 'package:recepia/models/meal_details_model.dart';
+import 'package:recepia/models/recipe_by_type_model.dart';
 import 'package:recepia/models/recipe_model.dart';
 
 //import 'test_data.dart';
@@ -64,5 +65,19 @@ class Api {
     // };
 
     return MealsRandomDetailsModel.fromJson(req.data);
+  }
+
+  Future<RecipesBytypeModel> searchByType(String name) async {
+    final req = await dio!.get(
+      'recipes/complexSearch',
+      queryParameters: {
+        "apiKey": api_key,
+        "type": name,
+      },
+    );
+
+    //final data = find_by_ingredeints;
+
+    return RecipesBytypeModel.fromMap(req.data);
   }
 }
